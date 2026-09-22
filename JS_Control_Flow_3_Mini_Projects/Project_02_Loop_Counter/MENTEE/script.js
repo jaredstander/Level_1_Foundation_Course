@@ -24,6 +24,10 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let maxCount = 5;
+let total = 0;
+console.log(maxCount);
+console.log(total);
 
 /* -----------------------------------------
    STEP 2 — for loop (count up)
@@ -38,6 +42,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+for (let currentNumber = 1; currentNumber <= maxCount; currentNumber++) {
+   console.log("FOR count:", currentNumber);
+   total += currentNumber;
+}
+console.log("FOR total:", total);
 
 /* -----------------------------------------
    STEP 3 — while loop (count down)
@@ -52,6 +61,12 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let countdown = 10;
+while (countdown > 0) {
+   console.log("WHILE countdown:", countdown);
+   countdown -= 1;
+}
+console.log("WHILE finished!");
 
 /* -----------------------------------------
    STEP 4 — do...while loop (runs at least once)
@@ -68,6 +83,13 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let tries = 0;
+let limit = 3;
+do {
+   console.log("DO...WHILE try:", tries);
+   tries += 1;
+} while (tries < limit);
+console.log("DO...WHILE done:", tries);
 
 /* -----------------------------------------
    STEP 5 — Mini challenge (prove you understand)
@@ -79,3 +101,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+for (let index = 1; index <= 10; index++) {
+   if(index % 2 === 0) {
+      console.log(index);
+   }
+}
