@@ -23,6 +23,12 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let billAmount = 520;
+let tipPercentWhole = 20;
+let peopleCount = 2;
+console.log(billAmount);
+console.log(tipPercentWhole);
+console.log(peopleCount);
 
 // STEP 2 — Percentage logic (15% → decimal)
 /*
@@ -33,6 +39,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let tipPercentDecimal = tipPercentWhole / 100;
+console.log(tipPercentDecimal);
 
 // STEP 3 — Calculate the tip (multiplication)
 /*
@@ -41,6 +49,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let tipAmount = billAmount * tipPercentDecimal;
+console.log(tipAmount);
 
 // STEP 4 — Calculate total bill (addition)
 /*
@@ -49,6 +59,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let totalAmount = billAmount + tipAmount;
+console.log(totalAmount);
 
 // STEP 5 — Split per person (division)
 /*
@@ -58,6 +70,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let perPerson = totalAmount / peopleCount;
+console.log(perPerson);
 
 // STEP 6 — Use % (remainder) operator (requested)
 /*
@@ -68,6 +82,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let remainder = billAmount % peopleCount;
+console.log(remainder);
 
 // STEP 7 — Debugging checks (>, <)
 /*
@@ -78,3 +94,6 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+console.log(tipAmount > 0);
+console.log(totalAmount > billAmount);
+console.log(remainder < peopleCount);

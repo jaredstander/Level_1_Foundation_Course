@@ -24,6 +24,7 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+console.log("Hello JavaScipt!");
 
 // STEP 2 — Variables (let vs const)
 /*
@@ -35,6 +36,10 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+const name = "Jared";
+let mood = "excited";
+console.log(name);
+console.log(mood);
 
 // STEP 3 — Data types (string, number, boolean)
 /*
@@ -46,6 +51,9 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let favoriteFood = "pizza";
+let age = 41;
+let isLearningJS = true;
 
 // STEP 4 — Operators (+ and -) mini demo
 /*
@@ -57,6 +65,12 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let points = 10;
+let pointsAfterWin = points + 5;
+let pointsAfterLoss = points - 3;
+console.log(points);
+console.log(pointsAfterWin);
+console.log(pointsAfterLoss);
 
 // STEP 5 — Curly braces practice (if/else block)
 /*
@@ -67,3 +81,8 @@
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+if(isLearningJS) {
+  console.log("Keep going!");
+} else {
+  console.log("Start today!");
+}
