@@ -25,6 +25,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let contact = { name: "Alice", phone: "(555) 555-5555", city: "Manchester" };
+console.log(contact);
 
 /* -----------------------------------------
    STEP 2 — Read and update properties
@@ -35,6 +37,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+console.log(contact.name);
+contact.city = "Boston";
+console.log(contact.city);
 
 /* -----------------------------------------
    STEP 3 — Add new properties
@@ -45,6 +50,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+contact.email = "aliceliddel@localhost";
+contact.isFavorite = true;
+console.log(contact);
 
 /* -----------------------------------------
    STEP 4 — Bracket notation
@@ -56,6 +64,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let keyName = "phone";
+console.log(contact[keyName]);
 
 /* -----------------------------------------
    STEP 5 — Loop through the object (for...in)
@@ -69,3 +79,6 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+for (const key in contact) {
+  console.log(`${key} => ${contact[key]}`);
+}

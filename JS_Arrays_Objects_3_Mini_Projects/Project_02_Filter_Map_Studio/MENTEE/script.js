@@ -20,6 +20,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let numbers = [2, 4, 2, 7, 7, 7, 11, 11, 1, 3];
+console.log("Numbers:", numbers);
 
 /* -----------------------------------------
    STEP 2 — filter: keep only numbers >= 10
@@ -30,6 +32,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let bigNumbers = numbers.filter((num) => num > 10);
+console.log("Big Numbers:", bigNumbers);
 
 /* -----------------------------------------
    STEP 3 — filter: keep only EVEN numbers
@@ -42,6 +46,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let evenNumbers = numbers.filter((num) => num % 2 === 0);
+console.log("Even Nubmers:", evenNumbers);
 
 /* -----------------------------------------
    STEP 4 — map: double every number
@@ -52,6 +58,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+doubled = numbers.map((num) => num * 2);
+console.log("Doubled Numbers", doubled);
 
 /* -----------------------------------------
    STEP 5 — Combine filter + map
@@ -64,3 +72,6 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let result = numbers.filter((num) => num > 5);
+result = result.map((num) => num += 100);
+console.log("Result Numbers", result);

@@ -24,6 +24,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let groceries = ["coffee", "chips", "salsa", "hummus"];
+console.log(groceries);
+console.log("Length:", groceries.length);
 
 /* -----------------------------------------
    STEP 2 — Read and update by index
@@ -34,6 +37,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+console.log(groceries[0]);
+groceries[1] = "candy";
+console.log(groceries);
 
 /* -----------------------------------------
    STEP 3 — push + pop (end of array)
@@ -46,6 +52,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+groceries.push("chocolate");
+console.log(groceries);
+let removedEnd = groceries.pop();
+console.log(removedEnd);
+console.log("post-pop", groceries);
 
 /* -----------------------------------------
    STEP 4 — unshift + shift (start of array)
@@ -58,6 +69,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+groceries.unshift("water");
+console.log("unshift water", groceries);
+let removedStart = groceries.shift();
+console.log("removedStart", removedStart);
+console.log("post-shift", groceries);
 
 /* -----------------------------------------
    STEP 5 — splice (middle edit)
@@ -74,3 +90,8 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let splicedArry = groceries.splice(2, 1); // Using index 2, below index 1 seems to be referring to position 0, but just using 2 since it says 2.
+console.log("returned value from splice", splicedArry);
+console.log(groceries);
+groceries.splice(0, 1, "tea"); // It says remove 0 but index 1, so using index 0.
+console.log(groceries);
