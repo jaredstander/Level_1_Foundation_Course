@@ -19,6 +19,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function sayHello() {
+   console.log("Hello!");
+}
 
 /* -----------------------------------------
    STEP 2 — Call the function
@@ -27,6 +30,9 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+sayHello();
+sayHello();
+sayHello();
 
 /* -----------------------------------------
    STEP 3 — Return a value
@@ -37,6 +43,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function getGreeting() {
+   return "Hi, welcome!";
+}
+let getGreetingVar = getGreeting();
+console.log(getGreetingVar);
 
 /* -----------------------------------------
    STEP 4 — Function with 1 parameter
@@ -47,6 +58,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function greetPerson(name) {
+   console.log(`Hello, ${name}!`);
+}
+greetPerson("Alice");
+greetPerson("Bernard");
 
 /* -----------------------------------------
    STEP 5 — Function expression
@@ -58,3 +74,5 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+const square = (number) => number * number;
+console.log(square(5));

@@ -23,6 +23,13 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let city = "Manchester";
+
+function printCity() {
+   console.log(city);
+}
+
+console.log(printCity());
 
 /* -----------------------------------------
    STEP 2 — Local variables stay inside the function
@@ -38,6 +45,11 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function makeSecret() {
+   let secret = "shhhhhhhh...";
+   console.log(secret);
+}
+makeSecret();
 
 /* -----------------------------------------
    STEP 3 — Scope shadowing (same name, different place)
@@ -51,6 +63,14 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let level = 1;
+
+function printLevel() {
+   let level = 2;
+   console.log("Inside:", level);
+}
+console.log("Outside:", level);
+printLevel();
 
 /* -----------------------------------------
    STEP 4 — Hoisting: function declaration
@@ -66,6 +86,10 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+hoistedHello();
+function hoistedHello() {
+   console.log("Called hoistedHello.");
+}
 
 /* -----------------------------------------
    STEP 5 — NOT hoisted: function expression
@@ -80,3 +104,10 @@ RULES:
 */
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+notHoistedHello();
+const notHoistedHello = () => console.log("Called notHoistedHello.");
+/*
+   notHoistedHello fails to be hoisted because it's an expression.
+   Any declarations (variables, functions) are processed first, then expressed are processed when JavaScript is executed.
+   Since notHoistedHello is an expression (=) and not a declaration, it cannot be hoisted because it is not initilized in the first pass JavaScript does.
+*/
