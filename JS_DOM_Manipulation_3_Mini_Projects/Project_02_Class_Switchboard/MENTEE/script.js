@@ -24,6 +24,16 @@
 // Then console.log each one.
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let highlightButton = document.getElementById("highlightBtn");
+let shakeButton = document.getElementById("shakeBtn");
+let resetButton = document.getElementById("resetBtn");
+let messageBox = document.getElementById("messageBox");
+let statusText = document.getElementById("statusText");
+console.log(highlightButton);
+console.log(shakeButton);
+console.log(resetButton);
+console.log(messageBox);
+console.log(statusText);
 
 // --------------------------------------------
 // STEP 2 — Toggle highlight class
@@ -38,6 +48,24 @@
 // Hint: messageBox.classList.contains("highlight")
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+highlightButton.addEventListener("click", (event) => {
+    // New JS function does this automatically, including both solutions:
+    messageBox.classList.toggle("highlight");
+
+    // The way from the example:
+    // if(messageBox.classList.contains("highlight")) {
+    //     messageBox.classList.remove("highlight");
+    // } else {
+    //     messageBox.classList.add("highlight");
+    // }
+
+    // But contains is needed still for the statusText:
+    if(messageBox.classList.contains("highlight")) {
+        statusText.textContent = "Highlight ON.";
+    } else {
+        statusText.textContent = "Highlight OFF.";
+    }
+});
 
 // --------------------------------------------
 // STEP 3 — Shake the box (temporary class)
@@ -49,6 +77,16 @@
 // 4) after removing: statusText.textContent = "done shaking"
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+shakeButton.addEventListener("click", (event) => {
+    if(messageBox.classList.contains("shake")) return;
+
+    messageBox.classList.add("shake");
+    statusText.textContent = "Shaking...";
+    setTimeout(() => {
+        messageBox.classList.remove("shake");
+        statusText.textContent = "Done shaking.";
+    }, 350);
+});
 
 // --------------------------------------------
 // STEP 4 — Reset everything
@@ -59,3 +97,8 @@
 // 3) statusText.textContent = "reset complete"
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+resetButton.addEventListener("click", (event) => {
+    removeClasses = ["highlight", "shake"];
+    messageBox.classList.remove(...removeClasses);
+    statusText.textContent = "Reset complete.";
+});

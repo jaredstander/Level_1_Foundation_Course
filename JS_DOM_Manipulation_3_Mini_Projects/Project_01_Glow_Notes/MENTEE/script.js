@@ -23,6 +23,12 @@
 // Then console.log all 3 variables to prove your selectors worked.
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let addNoteInput = document.getElementById("noteInput");
+let addNoteButton = document.querySelector("#addBtn");
+let addNoteUl = document.querySelector("#noteList");
+console.log(addNoteInput);
+console.log(addNoteButton);
+console.log(addNoteUl);
 
 // --------------------------------------------
 // STEP 2 — Create a function that builds ONE note <li>
@@ -38,6 +44,28 @@
 // 6) return the li
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function createNoteElement(noteText) {
+    let liClasses = ["note"];
+    let pClasses = ["noteText"];
+    let buttonClasses = ["btn", "danger", "removeBtn"];
+
+    // Create new list item and append the class.
+    let noteLi = document.createElement("LI");
+    noteLi.classList.add(...liClasses);
+
+    // Create new p tag, add classes, and set value based on function input.
+    let noteP = document.createElement("P");
+    noteP.classList.add(...pClasses);
+    noteP.textContent = noteText;
+
+    let noteButton = document.createElement("BUTTON");
+    noteButton.classList.add(...buttonClasses);
+    noteButton.textContent = "Remove";
+    noteButton.setAttribute("type", "button");
+
+    noteLi.innerHTML = noteP.outerHTML + noteButton.outerHTML;
+    return noteLi;
+}
 
 // --------------------------------------------
 // STEP 3 — Add click behavior to "Add Note"
@@ -53,6 +81,27 @@
 // 6) console.log("Added note:", text)
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+addNoteButton.addEventListener("click", (event) => {
+    // Pull value from field into internal function variable.
+    inputValue = addNoteInput.value;
+
+    // Check for empty note.
+    if(inputValue == "") return;
+
+    // Get element based on text and append it to the list.
+    let newNote = createNoteElement(inputValue);
+    addNoteUl.append(newNote);
+
+    // Adding the flash from Step 5... Which I can do because of hoisting.
+    // Also putting this into a timeout so that the element can appear before this is executed and the transition can have flash fade in before fading out.
+    setTimeout(() => {
+        flashNote(newNote);
+    }, 100);
+
+    // Clear input for new note.
+    addNoteInput.value = "";
+    console.log("Added Note:", inputValue);
+});
 
 // --------------------------------------------
 // STEP 4 — Remove notes (event delegation)
@@ -67,6 +116,12 @@
 // 3) console.log("Removed a note")
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+addNoteUl.addEventListener("click", (event) => {
+    if(event.target.classList.contains("removeBtn")) {
+        event.target.closest("li").remove();
+        console.log("Removed a note.");
+    }
+});
 
 // --------------------------------------------
 // STEP 5 — BONUS: Add a "flash" class when adding
@@ -78,3 +133,9 @@
 // (CSS already exists for .flash)
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function flashNote(noteElem) {
+    noteElem.classList.add("flash");
+    setTimeout(() => {
+        noteElem.classList.remove("flash");
+    }, 300);
+}

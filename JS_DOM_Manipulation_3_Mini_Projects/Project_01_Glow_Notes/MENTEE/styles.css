@@ -20,8 +20,8 @@ input{flex:1;min-width:220px;padding:12px;border-radius:14px;border:1px solid rg
 .btn{padding:12px 14px;border-radius:14px;border:1px solid rgba(56,189,248,.38);background:rgba(56,189,248,.16);color:var(--text);font-weight:900;cursor:pointer}
 .btn.danger{border-color:rgba(239,68,68,.40);background:rgba(239,68,68,.14)}
 .noteList{margin:12px 0 0;display:grid;gap:10px;padding:0;list-style:none}
-.note{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28)}
+.note{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);transition:all 0.25s ease-in-out;}
 .note p{margin:0;color:var(--muted);line-height:1.5}
 .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(167,139,250,.38);background:rgba(167,139,250,.14);font-size:12px;font-weight:900}
-.flash{outline:2px solid rgba(56,189,248,.65);box-shadow:0 0 0 6px rgba(56,189,248,.12)}
+.flash{outline:2px solid rgba(56,189,248,.65);box-shadow:0 0 0 6px rgba(56,189,248,.12);transition:all 0.25s ease-in-out;}
 .footer{margin-top:16px;color:rgba(243,246,255,.60);font-size:13px}

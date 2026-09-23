@@ -28,6 +28,14 @@
 // Then console.log them.
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let imageUrlInput = document.getElementById("imgUrlInput");
+let addImageBtn = document.getElementById("addImageBtn");
+let clearBtn = document.getElementById("clearBtn");
+let gallery = document.getElementById("gallery");
+console.log(imageUrlInput);
+console.log(addImageBtn);
+console.log(clearBtn);
+console.log(gallery);
 
 // --------------------------------------------
 // STEP 2 — Build a function that creates ONE thumb card
@@ -46,6 +54,48 @@
 // 7) return the thumb
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function createThumb(url, idNumber) {
+    // Create the container for the thumbnail
+    let thumbContainer = document.createElement("DIV");
+    thumbContainer.classList.add("thumb");
+    thumbContainer.setAttribute("data-id", idNumber);
+
+    // Create the thumbnail image tag for the thumbnail
+    let image = document.createElement("IMG");
+    image.setAttribute("src", url);
+    image.setAttribute("alt", `User Image #${idNumber}`);
+
+    // Create the container with class row to hold the two buttons
+    let rowClasses = ["row"];
+    let row = document.createElement("DIV");
+    row.classList.add(...rowClasses);
+
+
+    // Create the set alt button for the thumbnail
+    let setAltBtnClasses = ["btn", "setAltBtn"];
+    let setAltBtn = document.createElement("BUTTON");
+    setAltBtn.classList.add(...setAltBtnClasses);
+    setAltBtn.setAttribute("type", "button");
+    setAltBtn.textContent = "Set Alt";
+
+    // Create the set remove button for the thumbnail
+    let removeBtnClasses = ["btn", "removeThumbBtn"];
+    let removeBtn = document.createElement("BUTTON");
+    removeBtn.classList.add(...removeBtnClasses);
+    removeBtn.textContent = "Remove";
+
+    // Create the alt paragraph tag with the small class
+    let altClasses = ["small"];
+    let alt = document.createElement("P");
+    alt.classList.add(...altClasses);
+    alt.textContent = `User Image #${idNumber}`;
+
+    // Append the image and button to the thumbnail
+    row.append(setAltBtn, removeBtn);
+    thumbContainer.append(image, row, alt);
+
+    return thumbContainer;
+}
 
 // --------------------------------------------
 // STEP 3 — Add Image button: create + append
@@ -63,6 +113,20 @@
 //    - clear the input
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let nextId = 3;
+
+addImageBtn.addEventListener("click", (event) => {
+    let imgUrl = imageUrlInput.value;
+
+    if(imgUrl == "") return;
+
+    let newThumb = createThumb(imgUrl, nextId);
+    gallery.append(newThumb);
+
+    nextId += 1;
+
+    imageUrlInput.value = "";
+});
 
 // --------------------------------------------
 // STEP 4 — Set Alt + Remove buttons (event delegation)
@@ -82,6 +146,18 @@
 //    2) remove it
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+gallery.addEventListener("click", (event) => {
+    if(event.target.classList.contains("setAltBtn")) {
+        // Set Alt actions
+        let thumb = event.target.closest(".thumb");
+        let thumbImg = thumb.querySelector("img");
+        let thumbId = thumb.getAttribute("data-id");
+        thumbImg.setAttribute("alt", `Gallery image #${thumbId}`);
+    } else if(event.target.classList.contains("removeThumbBtn")) {
+        // Remove Actions
+        event.target.closest(".thumb").remove();
+    }
+});
 
 // --------------------------------------------
 // STEP 5 — Clear All (practice option)
@@ -91,6 +167,12 @@
 // 2) remove each one with a loop (forEach)
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+clearBtn.addEventListener("click", (event) => {
+    let allThumbs = document.querySelectorAll(".thumb");
+    allThumbs.forEach(thumb => {
+        thumb.remove();
+    });
+});
 
 // --------------------------------------------
 // STEP 6 — BONUS: querySelectorAll practice on load
@@ -101,3 +183,7 @@
 // 3) for each thumb, log its data-id
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+window.addEventListener("load", (event) => {
+    let allThumbs = gallery.querySelectorAll(".thumb");
+    console.log(allThumbs.length);
+});
