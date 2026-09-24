@@ -32,6 +32,12 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let countValue = document.getElementById("countValue");
+let increaseBtn = document.getElementById("increaseBtn");
+let resetBtn = document.getElementById("resetBtn");
+let toggleBtn = document.getElementById("toggleBtn");
+let panel = document.getElementById("panel");
+let debugText = document.getElementById("debugText");
 
 // =====================================================
 // STEP 2) CREATE a "state" variable to track the count
@@ -47,6 +53,7 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let count = 0;
 
 // =====================================================
 // STEP 3) CLICK EVENT: Increase button
@@ -62,6 +69,12 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+increaseBtn.addEventListener("click", (event) => {
+  count += 1;
+  countValue.textContent = count;
+  console.log(count);
+  debugText.innerHTML += "<br />Last action: +1";
+});
 
 // =====================================================
 // STEP 4) CLICK EVENT: Reset button
@@ -75,6 +88,12 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+resetBtn.addEventListener("click", (event) => {
+  count = 0;
+  countValue.textContent = count;
+  console.log("Count Reset");
+  debugText.innerHTML += "<br />Last action: Reset";
+});
 
 // =====================================================
 // STEP 5) CLICK EVENT: Toggle the panel
@@ -94,6 +113,14 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+toggleBtn.addEventListener("click", (event) => {
+  let panelStatus = panel.classList.toggle("isHidden");
+  if(panelStatus) {
+    debugText.innerHTML += "<br />Last action: Panel hidden";
+  } else {
+    debugText.innerHTML += "<br />Last action: Panel shown";
+  }
+});
 
 // =====================================================
 // STEP 6) DEBUG CHECK (optional but recommended)
@@ -104,3 +131,11 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+// console.log(countValue, increaseBtn, resetBtn, toggleBtn, panel, debugText);
+// I like having the separate element on separate lines.
+console.log(countValue);
+console.log(increaseBtn);
+console.log(resetBtn);
+console.log(toggleBtn);
+console.log(panel);
+console.log(debugText);

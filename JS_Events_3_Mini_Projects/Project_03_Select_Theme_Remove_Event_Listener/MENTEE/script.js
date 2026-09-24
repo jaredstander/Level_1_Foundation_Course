@@ -29,6 +29,14 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let body = document.body;
+let themeSelect = document.querySelector("#themeSelect");
+let themeStatus = document.querySelector("#themeStatus");
+let listenBtn = document.querySelector("#listenBtn");
+let stopBtn = document.querySelector("#stopBtn");
+let startBtn = document.querySelector("#startBtn");
+let clickCountText = document.querySelector("#clickCountText");
+let themes = ["theme-space", "theme-sunset", "theme-ocean"];
 
 // =====================================================
 // STEP 2) CHANGE EVENT: Theme dropdown
@@ -44,6 +52,15 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+themeSelect.addEventListener("change", (event) => {
+  // The dropdown has the theme name without the 'theme-' prefix, so I am just fixing this in the script:
+  // Seems to have been omitted so that the value can be used directly as the themeStatus value.
+  let selectedTheme = `theme-${event.target.value}`;
+
+  body.classList.remove(...themes);
+  body.classList.add(selectedTheme);
+  themeStatus.textContent = event.target.value;
+});
 
 // =====================================================
 // STEP 3) Create state for click counting
@@ -52,6 +69,7 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+let clickCount = 0;
 
 // =====================================================
 // STEP 4) Create a NAMED handler function for the listen button
@@ -73,6 +91,11 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+function handleListenClick() {
+  clickCount += 1;
+  clickCountText.textContent = `Button clicks: ${clickCount}`;
+  listenBtn.textContent = `Click Me (${clickCount})`;
+}
 
 // =====================================================
 // STEP 5) Attach the click listener to the listen button
@@ -81,6 +104,7 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+listenBtn.addEventListener("click", handleListenClick);
 
 // =====================================================
 // STEP 6) STOP button: removeEventListener
@@ -92,6 +116,10 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+stopBtn.addEventListener("click", (event) => {
+  listenBtn.removeEventListener("click", handleListenClick, false);
+  listenBtn.textContent = "Click Me (listener OFF)";
+});
 
 // =====================================================
 // STEP 7) START button: addEventListener back
@@ -103,6 +131,10 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+startBtn.addEventListener("click", (event) => {
+  listenBtn.addEventListener("click", handleListenClick);
+  listenBtn.textContent = "Click Me (listener ON)";
+});
 
 // =====================================================
 // STEP 8) DEBUG CHECK
@@ -111,3 +143,11 @@
 // =====================================================
 
 // ✅ WRITE YOUR CODE UNDER THIS LINE
+// I prefer the single line per selector output, but I know I could list these as one console.log statement.
+console.log(body);
+console.log(themeSelect);
+console.log(themeStatus);
+console.log(listenBtn);
+console.log(stopBtn);
+console.log(startBtn);
+console.log(clickCountText);
