@@ -122,10 +122,13 @@ let isRunning = false;
 // Step 3
 function readInputSeconds() {
    // console.log("Event: readInputSeconds()");
+   console.log("minutesInput", minutesInput);
+   console.log("secondsInput", secondsInput);
    totalInputTime = Number((Number(minutesInput.value) * 60) + Number(secondsInput.value));
+   console.log("total", totalInputTime);
 
    if(totalInputTime <= 0) {
-      statusText.textContent = "❗ Invalid Time.";
+      statusText.textContent = "❌ Invalid Time.";
       return 0;
    } else {
       return totalInputTime;
@@ -157,21 +160,24 @@ function stopInterval() {
 // Step 4
 startBtn.addEventListener("click", (event) => {
    // console.log("Event: startBtn click");
-   if(isRunning || !readInputSeconds) {
-      return;
-   } else {
-      isRunning = true;
-   }
-
+   if(isRunning) return;
+   
    // Edit this. Since reset reads the inputs and sets both total and remaining
    // (because render only uses remaining so that the numbers decrease)
    // then this needs to check for two things:
    //    remainingSeconds == 0 (just finished) AND totalSeconds > 0 (or else the message from the check in readInputSeconds will be overwritten)
-   //    remainingSeconds === totalSeconds (just reset)
-   if((remainingSeconds == 0 && totalSeconds > 0) || remainingSeconds === totalSeconds) {
+   //    remainingSeconds == totalSeconds (just reset)
+   if((remainingSeconds == 0 && totalSeconds > 0) || remainingSeconds == totalSeconds) {
       // Start new sprint
       totalSeconds = readInputSeconds();
       remainingSeconds = readInputSeconds();
+      if(totalSeconds <= 0) {
+         return;
+      } else {
+         isRunning = true;
+         // Need to call render here rigth away to make the starting value show before the first interval.
+         render();
+      }
       startBtn.setAttribute("disabled", "true");
       pauseBtn.removeAttribute("disabled");
       statusText.textContent = "Running...";
