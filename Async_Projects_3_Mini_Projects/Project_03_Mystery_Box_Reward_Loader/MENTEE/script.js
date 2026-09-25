@@ -112,3 +112,5 @@ resetBtn should call resetUI()
 */
 
 // ✅ WRITE YOUR CODE BELOW THIS LINE
+const openBtn = document.getElementById("openBtn");
+const resetBtn = document.getElementById("resetBtn");

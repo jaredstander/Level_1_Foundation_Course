@@ -128,3 +128,111 @@ Reset should always bring you back to Idle:
 */
 
 // ✅ WRITE YOUR CODE BELOW THIS LINE
+
+// Step 1
+const placeBtn = document.getElementById("placeBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const resetBtn = document.getElementById("resetBtn");
+const statusText = document.getElementById("statusText");
+const orderIdText = document.getElementById("orderIdText");
+const stepPending = document.getElementById("stepPending");
+const stepBrewing = document.getElementById("stepBrewing");
+const stepReady = document.getElementById("stepReady");
+const stepElements = [stepPending, stepBrewing, stepReady];
+const stepNames = ["active", "done"];
+// Similar to the theme selector, the classes in the CSS do not exactly match neutral, warn, good, etc;
+// So, sourcing these classes from the CSS directly.
+const toneStatuses = ["toneNeutral", "toneWarn", "toneGood", "toneBad"];
+
+// Step 2
+let currentOrderId = new String;
+let timeoutIds = new Array;
+
+// Step 3
+function resetTimeline() {
+   stepElements.forEach(step => {
+      step.classList.remove(...stepNames);
+   });
+   statusText.textContent = "Idle";
+   orderIdText.textContent = "—";
+}
+
+function setStep(stepElement, state) {
+   if(state === "active") {
+      stepElement.classList.add("active");
+   } else if(state === "done") {
+      stepElement.classList.remove("active");
+      stepElement.classList.add("done");
+   } else {
+      console.error("Error in setStep: Invalid State");
+   }
+}
+
+function setStatus(text, tone) {
+   statusText.textContent = text;
+   statusText.classList.remove(...toneStatuses);
+   statusText.classList.add(tone);
+}
+
+function clearAllTimeouts() {
+   timeoutIds.forEach((id) => {
+      clearTimeout(id);
+   });
+
+   timeoutIds = [];
+}
+
+// Step 4
+placeBtn.addEventListener("click", (event) => {
+   console.log("SYNC: Place Order clicked");
+   
+   clearAllTimeouts();
+   
+   let newOrderId = `CF-${Math.floor(1000 + Math.random() * 9000)}`;
+   currentOrderId = newOrderId;
+   orderIdText.textContent = newOrderId;
+   
+   placeBtn.setAttribute("disabled", "true");
+   cancelBtn.removeAttribute("disabled");
+
+   setStatus("Pending", "warn");
+   setStep(stepPending, "active");
+   
+   const brewingTimeout = setTimeout(() => {
+      setStep(stepPending, "done");
+      setStep(stepBrewing, "active");
+      setStatus("Brewing", "warn");
+   }, 1500);
+   // This push needs to exist outside of the declaration
+   timeoutIds.push(brewingTimeout);
+   
+   const readyTimeout = setTimeout(() => {
+      setStep(stepBrewing, "done");
+      setStep(stepReady, "active");
+      setStatus("Ready", "good");
+      cancelBtn.setAttribute("disabled", "true");
+      placeBtn.removeAttribute("disabled");
+   }, 3500);
+   // This push needs to exist outside of the declaration
+   timeoutIds.push(readyTimeout);
+});
+
+// Step 5
+cancelBtn.addEventListener("click", (event) => {
+   console.log("SYNC: Cancel clicked");
+
+   clearAllTimeouts();
+   setStatus("Cancelled", "bad");
+   placeBtn.removeAttribute("disabled");
+   cancelBtn.setAttribute("disabled", "true");
+});
+
+// Step 6
+resetBtn.addEventListener("click", (event) => {
+   console.log("SYNC: Reset clicked");
+
+   clearAllTimeouts();
+   resetTimeline();
+   placeBtn.removeAttribute("disabled");
+   cancelBtn.setAttribute("disabled", "true");
+});

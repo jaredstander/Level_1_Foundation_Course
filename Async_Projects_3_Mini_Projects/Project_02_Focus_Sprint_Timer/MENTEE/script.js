@@ -99,3 +99,124 @@ Reset should:
 */
 
 // ✅ WRITE YOUR CODE BELOW THIS LINE
+
+// Step 1
+// Inputs
+const minutesInput = document.getElementById("minutesInput");
+const secondsInput = document.getElementById("secondsInput");
+// Buttons
+const startBtn = document.getElementById("startBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const resetBtn = document.getElementById("resetBtn");
+// UI
+const timeDisplay = document.getElementById("timeDisplay");
+const statusText = document.getElementById("statusText");
+const progressBarFill = document.getElementById("progressBarFill");
+
+// Step 2
+let intervalId = null;
+let totalSeconds = 0;
+let remainingSeconds = 0;
+let isRunning = false;
+
+// Step 3
+function readInputSeconds() {
+   // console.log("Event: readInputSeconds()");
+   totalInputTime = Number((Number(minutesInput.value) * 60) + Number(secondsInput.value));
+
+   if(totalInputTime <= 0) {
+      statusText.textContent = "❗ Invalid Time.";
+      return 0;
+   } else {
+      return totalInputTime;
+   }
+}
+
+function formatTime(seconds) {
+   // console.log("Event: formatTime(seconds)");
+   let formattedMinutes = Math.floor(remainingSeconds / 60);
+   let formattedSeconds = Math.floor(remainingSeconds % 60);
+   return `${formattedMinutes.toString().padStart(2, "0")}:${formattedSeconds.toString().padStart(2, "0")}`;
+}
+
+function render() {
+   // console.log("Event: render()");
+   timeDisplay.textContent = formatTime(remainingSeconds);
+   let timePassed = totalSeconds - remainingSeconds;
+   progressBarFill.style.width = `${Math.round((timePassed / totalSeconds) * 100)}%`;
+}
+
+function stopInterval() {
+   if(intervalId) {
+      clearInterval(intervalId);
+   }
+   intervalId = null;
+   isRunning = false;
+}
+
+// Step 4
+startBtn.addEventListener("click", (event) => {
+   // console.log("Event: startBtn click");
+   if(isRunning || !readInputSeconds) {
+      return;
+   } else {
+      isRunning = true;
+   }
+
+   // Edit this. Since reset reads the inputs and sets both total and remaining
+   // (because render only uses remaining so that the numbers decrease)
+   // then this needs to check for two things:
+   //    remainingSeconds == 0 (just finished) AND totalSeconds > 0 (or else the message from the check in readInputSeconds will be overwritten)
+   //    remainingSeconds === totalSeconds (just reset)
+   if((remainingSeconds == 0 && totalSeconds > 0) || remainingSeconds === totalSeconds) {
+      // Start new sprint
+      totalSeconds = readInputSeconds();
+      remainingSeconds = readInputSeconds();
+      startBtn.setAttribute("disabled", "true");
+      pauseBtn.removeAttribute("disabled");
+      statusText.textContent = "Running...";
+      intervalId = setInterval(() => {
+         remainingSeconds -= 1;
+         render();
+         if(remainingSeconds <= 0) {
+            stopInterval(intervalId);
+            statusText.textContent = "✅ Sprint Complete!";
+            startBtn.removeAttribute("disabled");
+            pauseBtn.setAttribute("disabled", "true");
+         }
+      }, 1000);
+   } else if(remainingSeconds > 0 && remainingSeconds < totalSeconds) {
+      // Continue sprint from where it left off after being paused
+      intervalId = setInterval(() => {
+         remainingSeconds -= 1;
+         render();
+         if(remainingSeconds <= 0) {
+            stopInterval(intervalId);
+            statusText.textContent = "✅ Sprint Complete!";
+            startBtn.removeAttribute("disabled");
+            pauseBtn.setAttribute("disabled", "true");
+         }
+      }, 1000);
+   }
+});
+
+// Step 5
+pauseBtn.addEventListener("click", (event) => {
+   // console.log("Event: pauseBtn click");
+   stopInterval(intervalId);
+   statusText.textContent = "Paused";
+   startBtn.removeAttribute("disabled");
+   pauseBtn.setAttribute("disabled", "true");
+});
+
+// Step 6
+resetBtn.addEventListener("click", (event) => {
+   // console.log("Event: resetBtn click");
+   stopInterval(intervalId);
+   totalSeconds = readInputSeconds();
+   remainingSeconds = readInputSeconds();
+   render();
+   statusText.textContent = "Idle — set a sprint and press Start";
+   startBtn.removeAttribute("disabled");
+   pauseBtn.setAttribute("disabled", "true");
+});
