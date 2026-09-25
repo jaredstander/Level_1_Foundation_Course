@@ -112,5 +112,116 @@ resetBtn should call resetUI()
 */
 
 // ✅ WRITE YOUR CODE BELOW THIS LINE
+
+// Step 1
+// Buttons
 const openBtn = document.getElementById("openBtn");
 const resetBtn = document.getElementById("resetBtn");
+// Toggle
+const thenModeRadio = document.getElementById("thenModeRadio");
+const asyncModeRadio = document.getElementById("asyncModeRadio");
+// UI
+const loadingText = document.getElementById("loadingText");
+const resultCard = document.getElementById("resultCard");
+const rewardEmoji = document.getElementById("rewardEmoji");
+const rewardName = document.getElementById("rewardName");
+const rewardMeta = document.getElementById("rewardMeta");
+const errorCard = document.getElementById("errorCard");
+const errorMessage = document.getElementById("errorMessage");
+
+
+// Step 2
+function loadReward() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() < 0.7) {
+        resolve({ emoji: "🧿", name: "Neon Charm", rarity: "Rare", points: 120 });
+      } else {
+        reject("Loading Failed");
+      }
+    }, 1200);
+  });
+}
+
+
+// Step 3
+function showLoading() {
+  // show loadingText ("Loading...")
+  loadingText.style.display = "block";
+  // hide resultCard and errorCard
+  resultCard.style.display = "none";
+  // disable openBtn
+  openBtn.setAttribute("disabled", "true");
+}
+function showSuccess(reward) {
+  // hide loadingText
+  loadingText.style.display = "none";
+  // show resultCard
+  resultCard.style.display = "block";
+  // fill rewardEmoji/rewardName/rewardMeta
+  rewardEmoji.textContent = reward.emoji;
+  rewardName.textContent = reward.name;
+  rewardMeta.textContent = reward.meta;
+  // hide errorCard
+  errorCard.style.display = "none";
+  // enable openBtn
+  openBtn.removeAttribute("disabled");
+}
+function showError(message) {
+  // hide loadingText
+  loadingText.style.display = "none";
+  // show errorCard with message
+  errorCard.textContent = message;
+  errorCard.style.display = "block";
+  // hide resultCard
+  resultCard.style.display = "none";
+  // enable openBtn
+  openBtn.removeAttribute("disabled");
+}
+function resetUI() {
+  // hide loadingText
+  loadingText.style.display = "none";
+  // hide both cards
+  resultCard.style.display = "none";
+  errorCard.style.display = "none";
+  // clear previous text
+  loadingText.textContent = "Loading... decoding reward signal...";
+  // enable openBtn
+  openBtn.removeAttribute("disabled");
+}
+
+
+// Step 4
+openBtn.addEventListener("click", (event) => {
+  // Adding a resetUI call here to make it look nice;
+  // then when you click Open Reward again, it reset to be clearer to the user that this
+  // is a new reward.
+  resetUI();
+  if(thenModeRadio.checked) {
+    thenFetchReward();
+  } else if(asyncModeRadio.checked) {
+    awaitFetchReward();
+  }
+});
+// I am making then and await separate functions to illustrate the difference between those
+function thenFetchReward() {
+  showLoading();
+  loadReward().then(reward => showSuccess(reward)).catch(err => showError(err));
+}
+
+
+// Step 5
+async function awaitFetchReward() {
+  showLoading();
+  try {
+    const reward = await loadReward();
+    showSuccess(reward);
+  } catch (err) {
+    showError(err);
+  }
+}
+
+// Step 6
+resetBtn.addEventListener("click", (event) => {
+  resetUI();
+});
